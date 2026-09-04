@@ -1,3 +1,5 @@
-void main() {
-    System.out.println("Sistema de projetos");
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Sistema de projetos");
+    }
 }
