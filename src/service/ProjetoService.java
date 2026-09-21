@@ -2,25 +2,42 @@ package service;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import dao.ProjetoCSV;
 import model.Projeto;
 
 public class ProjetoService {
 
     private List<Projeto> projetos;
 
+    private ProjetoCSV dao;
+
     public ProjetoService() {
 
-        projetos = new ArrayList<>();
+        projetos =  new ArrayList<>();
+
+        dao =  new ProjetoCSV();
+    }
+
+    public void carregar()
+            throws Exception {
+
+        projetos = dao.listar();
 
     }
 
-    public boolean adicionar(Projeto projeto) {
+    public void salvar()
+            throws Exception {
 
-        if (
-                projeto.getNome() == null ||
-                        projeto.getNome().isBlank()
-        ) {
+        dao.salvar(projetos);
+
+    }
+
+    public boolean adicionar(
+            Projeto projeto
+    ) {
+
+        if (projeto.getNome() == null ||
+                projeto.getNome().isBlank() ) {
 
             return false;
 
@@ -45,6 +62,35 @@ public class ProjetoService {
 
     }
 
+    public boolean alterar(Projeto projetoAtualizado) {
+
+        Projeto projeto =
+                buscarPorId(projetoAtualizado.getId());
+
+        if (projeto == null) {
+
+            return false;
+        }
+
+        projeto.setNome(
+                projetoAtualizado.getNome()
+        );
+
+        projeto.setDescricao(
+                projetoAtualizado.getDescricao()
+        );
+
+        projeto.setCategoria(
+                projetoAtualizado.getCategoria()
+        );
+
+        projeto.setStatus(
+                projetoAtualizado.getStatus()
+        );
+
+        return true;
+    }
+
     public Projeto buscarPorId(int id) {
 
         for (Projeto projeto : projetos) {
@@ -63,8 +109,7 @@ public class ProjetoService {
             String categoria
     ) {
 
-        List<Projeto> resultado =
-                new ArrayList<>();
+        List<Projeto> resultado =  new ArrayList<>();
 
         for (Projeto projeto : projetos) {
 
@@ -85,8 +130,7 @@ public class ProjetoService {
             String status
     ) {
 
-        List<Projeto> resultado =
-                new ArrayList<>();
+        List<Projeto> resultado = new ArrayList<>();
 
         for (Projeto projeto : projetos) {
 
@@ -105,14 +149,13 @@ public class ProjetoService {
 
     public boolean removerPorId(int id) {
 
-        Projeto projeto = buscarPorId(id);
+        Projeto projeto =  buscarPorId(id);
 
         if (projeto != null) {
 
             projetos.remove(projeto);
 
             return true;
-
         }
 
         return false;
