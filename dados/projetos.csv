@@ -1,1 +1,5 @@
-
+id;nome;descricao;categoria;status
+1;Sistema Acadêmico;Sistema para gerenciamento acadêmico;Software;Em desenvolvimento
+2;Site Institucional;Website institucional;Web;Concluído
+3;Aplicativo Mobile;Aplicativo para prestação de serviços;Mobile;Planejado
+4;Portal de Eventos;Sistema para gerenciamento de eventos;Web;Planejado
